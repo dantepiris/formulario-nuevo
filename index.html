@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Encuentra tu próximo lugar · House & Flats</title>
+  <meta name="description" content="Cuéntanos qué necesitas y te mostramos pocas opciones que sí encajan contigo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="nf">
+  <!-- Fondo de marca (el mismo de /formulario en hyf-front) -->
+  <div class="nf-bg" aria-hidden="true">
+    <span class="nf-blob nf-blob-1"></span>
+    <span class="nf-blob nf-blob-2"></span>
+    <span class="nf-blob nf-blob-3"></span>
+  </div>
+
+  <div class="nf-shell">
+    <!-- ══ LATERAL ═══════════════════════════════════════════════ -->
+    <aside class="nf-side" aria-label="Cómo funciona">
+      <div class="nf-side-intro">
+        <h1 class="nf-side-title">Encuentra tu próximo lugar <em>por una temporada.</em></h1>
+        <p class="nf-side-sub">Cuéntanos qué necesitas y te mostramos pocas opciones que sí encajan contigo. Sin perder tiempo entre cientos de publicaciones.</p>
+      </div>
+
+      <!-- Carrusel de partners -->
+      <div class="lg">
+        <p class="lg-title" id="lgTitle">Nuestros partners te acompañan en la mudanza</p>
+        <div class="lg-viewport" aria-labelledby="lgTitle">
+          <ul class="lg-track" id="lgTrack"></ul>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ══ PANEL ═════════════════════════════════════════════════ -->
+    <main class="nf-panel">
+      <div class="nf-toast" id="toast" role="status" hidden>
+        <span>Recuperamos lo que habías completado.</span>
+        <button type="button" class="nf-toast-btn" id="restart">Empezar de cero</button>
+      </div>
+
+      <form class="nf-form" id="form" novalidate autocomplete="on">
+        <!-- Barra de progreso dentro del formulario -->
+        <div class="nf-topbar" id="topbar">
+          <div class="nf-topbar-meta">
+            <span class="nf-step-label" id="stepLabel">Paso 1 de 3 · Tu búsqueda</span>
+            <span class="nf-topbar-right">
+              <span class="nf-save-status" id="saveStatus" aria-live="polite"></span>
+              <span class="nf-pct" id="pct" aria-hidden="true">0%</span>
+            </span>
+          </div>
+          <div class="nf-progress" id="progress" role="progressbar" aria-label="Progreso del formulario" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="nf-progress-track"><div class="nf-progress-fill"></div></div>
+            <span class="nf-plane" id="plane" aria-hidden="true"><span class="nf-plane-emoji">✈️</span></span>
+            <span class="nf-bubble" id="bubble" role="status" hidden></span>
+          </div>
+        </div>
+
+        <!-- ── PASO 1 ── -->
+        <section class="nf-step" data-step="1" aria-labelledby="t1">
+          <header class="nf-step-head">
+            <h2 id="t1" class="nf-step-title" tabindex="-1">Partamos por lo esencial</h2>
+            <p class="nf-step-desc">Guardamos tu búsqueda desde este paso para poder ayudarte aunque no alcances a terminar.</p>
+          </header>
+
+          <div class="nf-grid-2">
+            <div class="nf-field" data-field="nombre">
+              <div class="nf-control">
+                <input id="f-nombre" name="nombre" type="text" placeholder=" " autocomplete="name" maxlength="120" aria-describedby="e-nombre" />
+                <label for="f-nombre">Nombre completo</label>
+                <span class="nf-control-ok" aria-hidden="true"></span>
+              </div>
+              <p id="e-nombre" class="nf-field-error"></p>
+            </div>
+            <div class="nf-field" data-field="email">
+              <div class="nf-control">
+                <input id="f-email" name="email" type="email" placeholder=" " autocomplete="email" inputmode="email" maxlength="160" aria-describedby="e-email" />
+                <label for="f-email">Email</label>
+                <span class="nf-control-ok" aria-hidden="true"></span>
+              </div>
+              <p id="e-email" class="nf-field-error"></p>
+            </div>
+          </div>
+
+          <div class="nf-field" data-field="whatsapp">
+            <div class="nf-phone-group">
+              <div class="nf-combo" id="comboPhone"></div>
+              <div class="nf-control">
+                <input id="f-whatsapp" name="whatsapp" type="tel" placeholder=" " autocomplete="tel-national" inputmode="numeric" maxlength="20" aria-describedby="h-whatsapp e-whatsapp" />
+                <label for="f-whatsapp">WhatsApp</label>
+                <span class="nf-control-ok" aria-hidden="true"></span>
+              </div>
+            </div>
+            <p id="h-whatsapp" class="nf-field-hint">Lo usamos para enviarte opciones y continuar tu búsqueda.</p>
+            <p id="e-whatsapp" class="nf-field-error"></p>
+          </div>
+
+          <p class="nf-group-label">¿Dónde quieres vivir?</p>
+          <div class="nf-grid-2">
+            <div class="nf-field" data-field="pais">
+              <div class="nf-combo" id="comboCountry"></div>
+              <p class="nf-field-error"></p>
+            </div>
+            <div class="nf-field" data-field="ciudad">
+              <div class="nf-combo" id="comboCity"></div>
+              <p class="nf-field-hint" id="cityHint">Primero elige el país.</p>
+              <p class="nf-field-error"></p>
+            </div>
+          </div>
+
+          <p class="nf-group-label">Sobre ti</p>
+          <div class="nf-grid-2">
+            <div class="nf-field" data-field="partner">
+              <div class="nf-combo" id="comboPartner"></div>
+              <p class="nf-field-hint">Elige el partner de House &amp; Flats que te trajo hasta aquí.</p>
+              <p class="nf-field-error"></p>
+            </div>
+            <div class="nf-field" data-field="edad">
+              <div class="nf-control">
+                <input id="f-edad" name="edad" type="text" placeholder=" " inputmode="numeric" autocomplete="off" maxlength="2" aria-describedby="e-edad" />
+                <label for="f-edad">Edad</label>
+                <span class="nf-control-ok" aria-hidden="true"></span>
+              </div>
+              <p id="e-edad" class="nf-field-error"></p>
+            </div>
+          </div>
+          <div class="nf-reveal" id="revealPartner" hidden>
+            <div class="nf-field" data-field="partner_nombre">
+              <div class="nf-control">
+                <input id="f-partner" name="partner" type="text" placeholder=" " maxlength="100" />
+                <label for="f-partner">Nombre del partner o empresa</label>
+              </div>
+              <p class="nf-field-error"></p>
+            </div>
+          </div>
+
+          <fieldset class="nf-field" data-field="motivo">
+            <legend class="nf-group-label">¿Qué te trae por una temporada?</legend>
+            <div class="nf-chips" role="radiogroup" id="motivoChips"></div>
+            <p class="nf-field-error"></p>
+          </fieldset>
+
+          <div class="nf-reveal" id="revealTrabajo" hidden>
+            <div class="nf-field" data-field="ocupacion">
+              <div class="nf-combo" id="comboOcupacion"></div>
+              <p class="nf-field-error"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── PASO 2 ── -->
+        <section class="nf-step" data-step="2" aria-labelledby="t2" hidden>
+          <header class="nf-step-head">
+            <h2 id="t2" class="nf-step-title" tabindex="-1">¿Cómo sería tu estadía ideal?</h2>
+            <p class="nf-step-desc">Con fechas, presupuesto y tipo de alojamiento podemos filtrar lo que realmente sirve.</p>
+          </header>
+
+          <div class="nf-grid-2">
+            <div class="nf-field" data-field="fecha_inicio">
+              <div class="nf-control nf-control-date">
+                <input id="f-inicio" name="fecha_inicio" type="date" class="is-empty" />
+                <label for="f-inicio">Ingreso</label>
+              </div>
+              <p class="nf-field-error"></p>
+            </div>
+            <div class="nf-field" data-field="fecha_fin">
+              <div class="nf-control nf-control-date">
+                <input id="f-fin" name="fecha_fin" type="date" class="is-empty" />
+                <label for="f-fin">Salida</label>
+              </div>
+              <p class="nf-field-error"></p>
+            </div>
+          </div>
+          <div class="nf-duration" id="duration" aria-live="polite" hidden>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+            <span>Estadía estimada:</span>
+            <strong id="durationText"></strong>
+          </div>
+
+          <div class="nf-field" data-field="presupuesto">
+            <div class="nf-budget-head">
+              <p id="l-budget" class="nf-group-label">Presupuesto mensual</p>
+              <div class="nf-segmented nf-segmented-sm" id="segCurrency" aria-label="Moneda"></div>
+            </div>
+            <div class="nf-budget">
+              <div class="nf-budget-display">
+                <span class="nf-budget-currency" id="budgetCur">EUR</span>
+                <input id="f-presupuesto" name="presupuesto" type="text" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="700" aria-labelledby="l-budget" aria-describedby="h-budget" />
+                <span class="nf-budget-per">/ mes</span>
+              </div>
+              <input type="range" class="nf-range" id="f-range" aria-label="Ajustar presupuesto" />
+              <div class="nf-range-scale" aria-hidden="true"><span id="rMin"></span><span id="rMid"></span><span id="rMax"></span></div>
+            </div>
+            <p id="h-budget" class="nf-field-hint">Un monto aproximado alcanza: así no te mostramos opciones fuera de tu alcance.</p>
+            <p class="nf-field-error"></p>
+          </div>
+
+          <fieldset class="nf-field" data-field="tipo">
+            <legend class="nf-group-label">Tipo de alojamiento</legend>
+            <div class="nf-cards" role="radiogroup" id="tipoCards"></div>
+            <p class="nf-field-error"></p>
+          </fieldset>
+
+          <fieldset class="nf-field" data-field="personas">
+            <legend class="nf-group-label">¿Cuántas personas son?</legend>
+            <div class="nf-segmented" id="segPeople"></div>
+          </fieldset>
+
+          <fieldset class="nf-field" data-field="momento">
+            <legend class="nf-group-label">¿En qué momento estás?</legend>
+            <div class="nf-chips" role="radiogroup" id="momentoChips"></div>
+            <p class="nf-field-error"></p>
+          </fieldset>
+        </section>
+
+        <!-- ── PASO 3 ── -->
+        <section class="nf-step" data-step="3" aria-labelledby="t3" hidden>
+          <header class="nf-step-head">
+            <h2 id="t3" class="nf-step-title" tabindex="-1">Últimos detalles</h2>
+            <p class="nf-step-desc">Esto nos ayuda a ordenar tu shortlist como lo haría un buen match: pocas opciones, pero relevantes.</p>
+          </header>
+
+
+          <fieldset class="nf-field" data-field="prioridades">
+            <legend class="nf-group-label">¿Qué es más importante para ti? <span class="nf-group-hint">elige las que quieras</span></legend>
+            <div class="nf-chips" id="prioChips"></div>
+          </fieldset>
+
+          <div id="studiesBlock" hidden>
+          <p class="nf-group-label">Tus estudios <span class="nf-group-hint">opcional</span></p>
+          <div class="nf-grid-2">
+            <div class="nf-field" data-field="universidad_origen">
+              <div class="nf-control">
+                <input id="f-uni-origen" name="universidad_origen" type="text" placeholder=" " maxlength="160" />
+                <label for="f-uni-origen">¿Dónde estudiaste?</label>
+              </div>
+              <p class="nf-field-hint">Universidad o institución de origen.</p>
+            </div>
+            <div class="nf-field" data-field="universidad_destino">
+              <div class="nf-control">
+                <input id="f-uni-destino" name="universidad_destino" type="text" placeholder=" " maxlength="160" />
+                <label for="f-uni-destino">Universidad de destino</label>
+              </div>
+              <p class="nf-field-hint">Donde estudiarás durante tu estadía.</p>
+            </div>
+          </div>
+          </div>
+
+          <div class="nf-field" data-field="notas">
+            <div class="nf-control nf-control-textarea">
+              <textarea id="f-notas" name="notas" placeholder=" " rows="3" maxlength="1000" aria-describedby="c-notas"></textarea>
+              <label for="f-notas">Algo más que debamos saber <span class="nf-label-opt">(opcional)</span></label>
+            </div>
+            <div class="nf-field-foot">
+              <p class="nf-field-hint">Mascota, estacionamiento, cama doble, ascensor, fecha flexible…</p>
+              <span id="c-notas" class="nf-counter">0 / 1000</span>
+            </div>
+          </div>
+
+          <div class="nf-review">
+            <p class="nf-review-title">Revisa tu búsqueda</p>
+            <dl class="nf-review-grid" id="review"></dl>
+          </div>
+        </section>
+
+        <!-- ══ NAVEGACIÓN ══ -->
+        <div class="nf-nav">
+          <span class="nf-save-note" id="saveNote"><span class="nf-dot" aria-hidden="true"></span>Solicitud recuperable desde este paso</span>
+          <button type="button" class="nf-btn nf-btn-back" id="back" aria-label="Volver al paso anterior" hidden>
+            <span class="nf-btn-back-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+            <span>Volver</span>
+          </button>
+          <button type="submit" class="nf-btn nf-btn-primary" id="next">
+            <span id="nextLabel">Guardar y continuar</span>
+            <svg class="nf-btn-arrow" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+        </div>
+      </form>
+
+      <!-- ══ CARGANDO ══ -->
+      <div class="nf-loader-card" id="loader" role="status" aria-label="Creando tu shortlist" hidden>
+        <div class="ld">
+          <div class="ld-mark">
+            <img src="assets/hyf-loader-logo.png" alt="House and Flats" class="ld-logo" />
+            <span class="ld-orbit" aria-hidden="true"><span class="ld-plane">✈️</span></span>
+          </div>
+          <p class="ld-msg" id="loaderMsg">Buscando tu alojamiento ideal…</p>
+        </div>
+      </div>
+
+      <!-- ══ LISTO ══ -->
+      <section class="nf-screen" id="done" aria-labelledby="doneTitle" hidden>
+        <canvas class="nf-confetti" id="confetti" aria-hidden="true"></canvas>
+        <div class="nf-success-badge" aria-hidden="true">
+          <svg viewBox="0 0 52 52" width="76" height="76"><circle class="nf-check-circle" cx="26" cy="26" r="24" fill="none" /><path class="nf-check-mark" fill="none" d="M15 27l7 7 15-15" /></svg>
+        </div>
+        <h2 class="nf-success-title" id="doneTitle" tabindex="-1">Tu búsqueda ya está en marcha</h2>
+        <p class="nf-success-text">Recibimos tu solicitud. <strong>Sophi</strong> te va a escribir por <strong>WhatsApp</strong> con opciones que sí calzan con tu estadía, y seguimos afinando contigo.</p>
+        <ol class="nf-next-steps">
+          <li><span class="nf-ns-num">1</span><div><strong>Filtramos lo que sirve</strong><p>Cruzamos fechas, zona y presupuesto con alojamientos verificados.</p></div></li>
+          <li><span class="nf-ns-num">2</span><div><strong>Te mostramos pocas opciones</strong><p>Con disponibilidad real, precio y condiciones.</p></div></li>
+          <li><span class="nf-ns-num">3</span><div><strong>Tú eliges y afinamos</strong><p>Marca lo que te interesa y ajustamos la siguiente shortlist.</p></div></li>
+        </ol>
+        <button type="button" class="nf-btn nf-btn-primary" id="again">Ver prototipo de nuevo</button>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script src="phone-countries.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
